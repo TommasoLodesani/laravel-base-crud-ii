@@ -29,6 +29,8 @@ class ComicsController extends Controller
 
        $comic->save();
 
+       return redirect()->route('comics.show', ['comic'=> $comic->id]);
+
     }
 
 
@@ -39,15 +41,18 @@ class ComicsController extends Controller
     }
 
 
-    public function edit($id)
+    public function edit(Comic $comic)
     {
-        //
+
+        return view('admin.comics.edit', compact('comic'));
     }
 
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Comic $comic)
     {
-        //
+        $formData =  $request->all();
+        $comic->update($formData);
+        return redirect()->route('comics.show', ['comic'=> $comic]);
     }
 
     public function destroy($id)
