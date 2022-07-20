@@ -26,6 +26,9 @@ class ComicsController extends Controller
        $data = $request->all();
        $comic = new Comic();
        $comic->title = $data['title'];
+       $comic->price = $data['price'];
+       $comic->type = $data['type'];
+       $comic->series = $data['series'];
 
        $comic->save();
 
@@ -55,8 +58,10 @@ class ComicsController extends Controller
         return redirect()->route('comics.show', ['comic'=> $comic]);
     }
 
-    public function destroy($id)
+    public function destroy(Comic $comic)
     {
-        //
+        $comic->delete();
+
+        return redirect()->route('comics.index');
     }
 }
